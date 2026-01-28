@@ -28,6 +28,7 @@ int main(){
     ordenar(largas,nl);
     imprimir_grupo(texto,largas,nl);
     cout<<endl;
+    
     return 0;
 }
 
@@ -37,7 +38,7 @@ int separar_palabras(char* texto, char* palabras[]){
     while(*texto!='\0'){
         if(*texto!=' '){
             palabras[contador]=texto;
-            contador++;
+            contador++;cout<<texto<<endl;
                 while(*(texto+1)!=' ' && *(texto+1)!='\0') texto++;
             
             texto++;
