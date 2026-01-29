@@ -9,6 +9,8 @@ void insercion(int arr[],int n);
 void InsercionRecursiva(int arr[],int n,int i);
 void MergeShort(int arr[],int inicio,int final);
 void merge(int arr[],int l,int m,int r);
+void QuickShort(int arr[],int inicio,int final);
+int partition(int arr[],int inicio,int final);
 void imprimir(int arr[],int n);
 
 int main(){
@@ -17,7 +19,7 @@ int main(){
     int arreglo[n]={23,5,16};
     imprimir(arreglo,n);
     cout<<endl;
-    MergeShort(arreglo,0,2);
+    QuickShort(arreglo,0,2);
     imprimir(arreglo,n);
     cout<<endl;
     return 0;
@@ -110,7 +112,6 @@ void MergeShort(int arr[],int inicio,int final){
         merge(arr,inicio,mitad,final);
     }
     
-
 }
 void merge(int arr[],int l,int m,int r){
     int n1=m-l+1;
@@ -149,5 +150,29 @@ void merge(int arr[],int l,int m,int r){
     }
 }
 
+void QuickShort(int arr[],int inicio,int final){
+
+    if(inicio<final){
+        int pivote=partition(arr,inicio,final);
+        QuickShort(arr,inicio,pivote-1);
+        QuickShort(arr,pivote+1,final);
+        
+    }
+}
+
+int partition(int arr[],int inicio,int final){
+    int pivot=arr[final];
+    int i=inicio-1;
+
+    for(int j=inicio;j<final;j++){
+        if(arr[j]<=pivot){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+    }
+        swap(arr[i+1],arr[final]);
+
+        return i+1;
+}
 
 
