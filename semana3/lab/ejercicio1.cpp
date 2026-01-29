@@ -9,7 +9,7 @@ void clasificar(char* palabras[], int n,
                 char* largas[], int& nl);
 int comparar_palabras(const char* a, const char* b);
 void ordenar(char* v[], int n);
-void imprimir_grupo(const char* titulo, char* v[], int n);
+void imprimir_grupo(char* v[], int n);
 
 int main(){
     char texto[300]={"Programar en C++ requiere logica C++ exige disciplina"};
@@ -22,11 +22,11 @@ int main(){
     clasificar(palabras,n,cortas,nc,largas,nl);
     cout<<"Palabras cortas: "<<endl;
     ordenar(cortas,nc);
-    imprimir_grupo(texto,cortas,nc);
+    imprimir_grupo(cortas,nc);
     cout<<endl;
     cout<<"Palabras largas: "<<endl;
     ordenar(largas,nl);
-    imprimir_grupo(texto,largas,nl);
+    imprimir_grupo(largas,nl);
 
     
     return 0;
@@ -101,7 +101,7 @@ void ordenar(char* v[], int n){
     
 }
 
-void imprimir_grupo(const char* titulo, char* v[], int n){
+void imprimir_grupo(char* v[], int n){
     for(int i=0;i<n;i++){
         char* p=v[i];
         while(*p!=' ' && *p!='\0'){
