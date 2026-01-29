@@ -17,7 +17,7 @@ int main(){
     char* cortas[60];
     char* largas[60];
     int nc,nl;
-    cout<<longitud_palabra(texto)<<endl;
+
     int n=separar_palabras(texto,palabras);
     clasificar(palabras,n,cortas,nc,largas,nl);
     cout<<"Palabras cortas: "<<endl;
@@ -27,7 +27,7 @@ int main(){
     cout<<"Palabras largas: "<<endl;
     ordenar(largas,nl);
     imprimir_grupo(texto,largas,nl);
-    cout<<endl;
+
     
     return 0;
 }
@@ -38,12 +38,11 @@ int separar_palabras(char* texto, char* palabras[]){
     while(*texto!='\0'){
         if(*texto!=' '){
             palabras[contador]=texto;
-            contador++;cout<<texto<<endl;
+            contador++;
                 while(*(texto+1)!=' ' && *(texto+1)!='\0') texto++;
             
             texto++;
         }else if(*texto==' '){
-            *texto='\0';
             texto++;
         } else texto++;
     }
@@ -78,11 +77,14 @@ void clasificar(char* palabras[], int n,char* cortas[], int& nc,char* largas[], 
 }
 
 int comparar_palabras(const char* a, const char* b){
-    while(*a==*b && *a!='\0' && *b!='\0'){
+    while(*a==*b && *a!='\0' && *a!=' ' && *b!='\0' && *b!=' '){
         a++;
         b++;
     }
-    return *a-*b;
+    int i=*a-*b;
+    if(i>0) return 1;
+    else if (i<0) return -1;
+    return 0;
 }
 
 void ordenar(char* v[], int n){
@@ -101,6 +103,11 @@ void ordenar(char* v[], int n){
 
 void imprimir_grupo(const char* titulo, char* v[], int n){
     for(int i=0;i<n;i++){
-            cout<<v[i]<<endl;
+        char* p=v[i];
+        while(*p!=' ' && *p!='\0'){
+            cout<<*p;
+            p++;
+        }
+        cout<<endl;
     }
 }
