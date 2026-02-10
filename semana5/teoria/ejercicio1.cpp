@@ -7,20 +7,21 @@ struct Estudiante{
 };
 
 void leerDatos(Estudiante* e,int N){
-    for(int i=0;i<N;i++){
-        cout<<"Estudiante "<<i+1<<":"<<endl;
+    int cont=0;
+    for(Estudiante* i=e;i<e+N;i++,cont++){
+        cout<<"Estudiante "<<cont+1<<":"<<endl;
         cout<<"Ingresa el codigo: ";
-        cin>>e[i].codigo;
+        cin>>i->codigo;
         cout<<"Ingresa el promedio: ";
-        cin>>e[i].promedio;
+        cin>>i->promedio;
     }
 }
 
 void mostrarAprobados(Estudiante* e,int N){
-    for(int i=0;i<N;i++){
-        if(e[i].promedio>=10){
-            cout<<"Codigo: "<<e[i].codigo<<endl;
-            cout<<"Promedio: "<<e[i].promedio<<endl;
+    for(Estudiante* i=e;i<e+N;i++){
+        if((*i).promedio>=10){
+            cout<<"Codigo: "<<(*i).codigo<<endl;
+            cout<<"Promedio: "<<(*i).promedio<<endl;
             cout<<endl;
         }
         
