@@ -1,11 +1,13 @@
 #include <iostream>
 using namespace std;
 
-bool esFilaDominanteEstricta(int (*M)[4],int f);
-bool esFilaFuertementeDominante(int (*M)[4],int f);
+const int N=4;
+
+bool esFilaDominanteEstricta(int (*M)[N],int f);
+bool esFilaFuertementeDominante(int (*M)[N],int f);
 
 int main(){
-    const int N=4;
+    
     int M[N][N]={
         {2,3,1,4},
         {1,2,3,2},
@@ -14,7 +16,7 @@ int main(){
 
     cout<<"Fila    Dominante Estricta      Fuertemente Dominante"<<endl;
     cout<<"-----------------------------------------------------"<<endl;
-    for(int i=0;i<4;i++){
+    for(int i=0;i<N;i++){
     cout<<i<<"       ";
     if(esFilaDominanteEstricta(M,i)) cout<<"SI                       ";
     else cout<<"NO                       ";
@@ -26,15 +28,15 @@ int main(){
     return 0;
 }
 
-bool esFilaDominanteEstricta(int (*M)[4],int f){
-    int (*pf)[4]=M+f;
+bool esFilaDominanteEstricta(int (*M)[N],int f){
+    int (*pf)[N]=M+f;
     bool dominante=true;
     bool estricMayor=false;
 
-    for(int* colF=*pf;colF<*pf+4;colF++){
+    for(int* colF=*pf;colF<*pf+N;colF++){
         int cont=0;
 
-        for(int (*pd)[4]=M;pd<M+4;pd++){
+        for(int (*pd)[N]=M;pd<M+N;pd++){
             if(pf!=pd){
                 int* colD= *pd + (colF-*pf);
                 if(*colD>*colF){
@@ -51,17 +53,17 @@ bool esFilaDominanteEstricta(int (*M)[4],int f){
     return dominante && estricMayor;
 }
 
-bool esFilaFuertementeDominante(int (*M)[4],int f){
+bool esFilaFuertementeDominante(int (*M)[N],int f){
     if(esFilaDominanteEstricta(M,f)){
-        int (*pf)[4]=M+f;
+        int (*pf)[N]=M+f;
         int maxsuma=0;
 
-        for(int* p=*pf;p<*pf+4;p++) maxsuma+=*p;
+        for(int* p=*pf;p<*pf+N;p++) maxsuma+=*p;
 
-        for(int (*pd)[4]=M;pd<M+4;pd++){
+        for(int (*pd)[4]=M;pd<M+N;pd++){
             int suma=0;
 
-            for(int* col=*pd;col<*pd+4;col++){
+            for(int* col=*pd;col<*pd+N;col++){
                 suma+=*col;
             }
             
