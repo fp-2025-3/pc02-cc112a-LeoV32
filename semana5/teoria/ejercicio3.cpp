@@ -30,8 +30,7 @@ int main(){
     }
 
     while(cabeza!=NULL){
-        Producto* nuevo=new Producto;
-        nuevo=cabeza->siguiente;
+        Producto* nuevo=cabeza->siguiente;
         delete[] cabeza;
         cabeza=nuevo;
     }
