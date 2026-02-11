@@ -27,4 +27,6 @@ int main(){
     cout<<"El estudiante con la mayor nota es: ";
     cout<<e[indice].nombre<<endl;
     cout<<"Nota: "<<e[indice].nota<<endl;
+
+    delete[] e;
 }
