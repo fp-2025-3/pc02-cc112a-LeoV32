@@ -29,6 +29,7 @@ int main(){
 
 void datosAleatorios(Seleccion e[],int n){
     for(int i=0;i<n;i++){
+        e[i].pais="Pais_Seleccion "+to_string(i);
         e[i].PG=rand()%101;
         e[i].PP=rand()%(101-e[i].PG);
         e[i].PE=100-e[i].PG-e[i].PP;
@@ -43,7 +44,7 @@ void imprimir(Seleccion e[],int n){
     int mejor=0;
     cout<<"Seleccion            PG    PP    PE      Puntaje         Redimiento"<<endl;
     for(int i=0;i<n;i++){
-    cout<<"Pais_Seleccion "<<i<<"     ";
+    cout<<e[i].pais<<"     ";
     cout<<e[i].PG<<"    "<<e[i].PP<<"    "<<e[i].PE<<"        ";
     cout<<e[i].puntaje<<"                 "<<e[i].rendimiento<<endl;
     if(e[i].rendimiento>e[mejor].rendimiento) mejor=i;
