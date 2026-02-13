@@ -31,7 +31,7 @@ int main(){
 
     while(cabeza!=NULL){
         Producto* nuevo=cabeza->siguiente;
-        delete[] cabeza;
+        delete cabeza;
         cabeza=nuevo;
     }
 }
