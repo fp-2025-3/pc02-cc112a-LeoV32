@@ -13,18 +13,18 @@ void imprimir(Polinomio e);
 int main(){
     Polinomio e1,e2,e3;
     e1.n=2;
-    e1.coeficientes=new int[e1.n];
+    e1.coeficientes=new int[e1.n+1];
     e1.coeficientes[0]=3;
     e1.coeficientes[1]=0;
     e1.coeficientes[2]=2;
 
     e2.n=1;
-    e2.coeficientes=new int[e2.n];
+    e2.coeficientes=new int[e2.n+1];
     e2.coeficientes[0]=5;
     e2.coeficientes[1]=-4;
 
     e3.n=2;
-    e3.coeficientes=new int[e3.n];
+    e3.coeficientes=new int[e3.n+1];
     e3.coeficientes[0]=1;
     e3.coeficientes[1]=0;
     e3.coeficientes[2]=3;
@@ -41,6 +41,12 @@ int main(){
     imprimir(suma);
     cout<<"Producto de los tres polinomios: ";
     imprimir(producto);
+
+    delete[] e1.coeficientes;
+    delete[] e2.coeficientes;
+    delete[] e3.coeficientes;
+    delete[] suma.coeficientes;
+    delete[] producto.coeficientes;
 
     return 0;
 }

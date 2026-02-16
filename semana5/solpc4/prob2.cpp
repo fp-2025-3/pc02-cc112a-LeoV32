@@ -19,12 +19,14 @@ const int n=5;
 
 void llenandoDatos(seleccion e[n]);
 void imprimir(seleccion e[n]);
+void ordenar(seleccion e[n]);
 void intercambiar(seleccion &e1, seleccion &e2);
 
 int main(){
     srand(time(NULL));
     seleccion e[n];
     llenandoDatos(e);
+    ordenar(e);
     imprimir(e);
 
 }
@@ -57,6 +59,18 @@ void llenandoDatos(seleccion e[n]){
 void imprimir(seleccion e[n]){
     cout<<"Seleccion   PG   PE   PP   GF   GC   DG   Pts   Rend(%)"<<endl;
     cout<<"--------------------------------------------------------"<<endl;
+    
+    for(int i=0;i<n;i++){
+        cout<<e[i].nombre<<"      "<<e[i].PG<<"   "<<e[i].PE<<"   "<<e[i].PP<<"  ";
+        cout<<e[i].GF<<"  "<<e[i].GC<<"   "<<e[i].DG<<"   ";
+        cout<<e[i].puntajeTotal<<"    "<<e[i].rendimiento<<endl;
+    }
+
+    cout<<"Campeon: "<<e[0].nombre<<" | Puntaje: "<<e[0].puntajeTotal;
+    cout<<" | DG: "<<e[0].DG<<" | Rendimiento: "<<e[0].rendimiento<<endl;
+}
+
+void ordenar(seleccion e[n]){
     for(int i=0;i<n-1;i++){
         for(int j=i+1;j<n;j++){
             if(e[i].puntajeTotal<e[j].puntajeTotal){
@@ -74,28 +88,10 @@ void imprimir(seleccion e[n]){
             }
         }
     }
-    for(int i=0;i<n;i++){
-        cout<<e[i].nombre<<"      "<<e[i].PG<<"   "<<e[i].PE<<"   "<<e[i].PP<<"  ";
-        cout<<e[i].GF<<"  "<<e[i].GC<<"   "<<e[i].DG<<"   ";
-        cout<<e[i].puntajeTotal<<"    "<<e[i].rendimiento<<endl;
-    }
-
-    cout<<"Campeon: "<<e[0].nombre<<" | Puntaje: "<<e[0].puntajeTotal;
-    cout<<" | DG: "<<e[0].DG<<" | Rendimiento: "<<e[0].rendimiento<<endl;
 }
 
 void intercambiar(seleccion &e1, seleccion &e2){
-    swap(e1.DG,e2.DG);
-    swap(e1.GC,e2.GC);
-    swap(e1.GF,e2.GF);
-    swap(e1.PE,e2.PE);
-    swap(e1.PG,e2.PG);
-    swap(e1.PP,e2.PP);
-    swap(e1.puntajeTotal,e2.puntajeTotal);
-    float temp1=e1.rendimiento;
-    e1.rendimiento=e2.rendimiento;
-    e2.rendimiento=temp1;
-    string temp2=e1.nombre;
-    e1.nombre=e2.nombre;
-    e2.nombre=temp2;
+    seleccion temp=e1;
+    e1=e2;
+    e2=temp;
 }
