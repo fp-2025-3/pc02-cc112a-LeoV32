@@ -51,11 +51,7 @@ Producto crearProducto(int codigo,const char* nombre,double precio,int stock){
 }
 
 Producto* crearInventario(int n){
-    /*Producto arreglo[5];
-    arreglo[0].codigo=100;
-    arreglo[0].nombre="Teclado";
-    arreglo[0].precio=10.5;
-    arreglo[0].stock=5;*/
+    
     Producto* arreglo=new Producto[n];
     for(int i=0;i<n;i++){
         int codigo;
