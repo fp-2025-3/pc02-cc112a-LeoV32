@@ -6,9 +6,11 @@ Código: 20252226H
 1. 
 
 Ejemplo 1
+
 ![alt text](image.png)
 
 Ejemplo 2
+
 ![alt text](image-1.png)
 
 2. 
