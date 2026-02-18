@@ -1,7 +1,7 @@
-CUARTA PRÁCTICA CALIFICADA 
-Curso: Fundamentos de Programación CC112 - A
-Nombres y Apellidos:  Leo Alonso Velásquez Ronto
-Código: 20252226H
+## CUARTA PRÁCTICA CALIFICADA 
+### Curso: Fundamentos de Programación CC112 - A
+### Nombres y Apellidos:  Leo Alonso Velásquez Ronto
+### Código: 20252226H
 
 1. 
 
