@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
 using namespace std;
 
 struct Estudiante{
@@ -9,31 +10,30 @@ struct Estudiante{
 
 //Falta avanzar la parte del binario
 
-void Lectura(const string &nombreArchivo);
-void EscribirSobrescribiendo(const string &nombreArchivo,const string &nombre,int edad);
-void EscribirAlUltimo(const string &nombreArchivo,const string &nombre,int edad);
+void LecturaBinario(const string &nombreArchivo);
+void EscrituraBinario(const string &nombreArchivo,const string &nombre,int nota);
 
 int main(){
 
-    string nombreArchivo="texto.txt";
+    string nombreArchivo="datos.bin";
 
-    EscribirSobrescribiendo(nombreArchivo,"Juan",19);
-    EscribirSobrescribiendo(nombreArchivo,"Maria",12);
-    EscribirSobrescribiendo(nombreArchivo,"Pedro",31);
+    EscrituraBinario(nombreArchivo,"Juan",19);
+    EscrituraBinario(nombreArchivo,"Maria",12);
+    EscrituraBinario(nombreArchivo,"Pedro",31);
 
-    Lectura(nombreArchivo);
+    LecturaBinario(nombreArchivo);
     
-    EscribirAlUltimo(nombreArchivo,"Melisa",14);
-    EscribirAlUltimo(nombreArchivo,"Arturo",15);
-    EscribirAlUltimo(nombreArchivo,"Andres",17);
+    EscrituraBinario(nombreArchivo,"Melisa",14);
+    EscrituraBinario(nombreArchivo,"Arturo",15);
+    EscrituraBinario(nombreArchivo,"Andres",17);
     cout<<"Datos agregados correctamente"<<endl;
 
-    Lectura(nombreArchivo);
+    LecturaBinario(nombreArchivo);
     
     return 0;
 }
 
-void Lectura(const string &nombreArchivo){
+void LecturaBinario(const string &nombreArchivo){
     ifstream archivoLectura;
     archivoLectura.open(nombreArchivo);
 
@@ -42,39 +42,28 @@ void Lectura(const string &nombreArchivo){
         return;
     }
 
-    string nombre;
-    int nota;
+    Estudiante e;
 
-    while(archivoLectura>>nombre>>nota){
-        cout<<nombre<<" "<<nota<<endl;
+    while(archivoLectura.read((char*)&e,sizeof(Estudiante))){
+        cout<<e.nombre<<" "<<e.nota<<endl;
     }
     archivoLectura.close();
 }
 
-void EscribirSobrescribiendo(const string &nombreArchivo,const string &nombre,int edad){
-    ofstream archivoEscritura;
-    archivoEscritura.open(nombreArchivo);
+
+void EscrituraBinario(const string &nombreArchivo,const string &nombre,int nota){
+    ofstream archivoEscritura(nombreArchivo, ios::app | ios::binary);
 
     if(!archivoEscritura){
-        cerr<<"ERROR: no se logro abrir el archivo"<<endl;
+        cerr<<"ERROR, al abrir el archivo de escritura"<<endl;
         return ;
     }
-
-    archivoEscritura<<nombre<<" "<<edad<<endl;
+    Estudiante e;
+    e.nota=nota;
+    strncpy(e.nombre,nombre.c_str(),sizeof(e.nombre));
+    e.nombre[sizeof(e.nombre)-1]='\0';
+    
+    archivoEscritura.write((char*)&e,sizeof(Estudiante));
 
     archivoEscritura.close();
-
-}
-
-void EscribirAlUltimo(const string &nombreArchivo,const string &nombre,int edad){
-    ofstream fout(nombreArchivo, ios::app | ios::out);
-
-    if(!fout){
-        cerr<<"ERROR, al abir el archivo de escritura"<<endl;
-        return ;
-    }
-    fout<<nombre<<" "<<edad<<endl;
-    
-
-    fout.close();
 }
