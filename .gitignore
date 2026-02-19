@@ -1,0 +1,12 @@
+# binarios comunes
+a.out
+*.out
+*.exe
+
+# carpetas de compilación
+build/
+bin/
+
+# archivos temporales
+*.o
+*.log
