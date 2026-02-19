@@ -10,7 +10,7 @@ void Imprimir(const string& nombre);
 
 int main(){
     int monto;
-    string nombre1="ventas.txt";
+    string nombre1="output/ventas.txt";
 
     cout<<"Ingrese los "<<N<<" montos: "<<endl;
     for(int i=0;i<N;i++){
