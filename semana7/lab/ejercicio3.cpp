@@ -12,17 +12,32 @@ struct Venta {
 
 int totalRegistrados(const char* venta);
 double montoTotal(const char* venta);
-void mayorVendedor(const char* venta);
+void mayorVendedor(const char* venta,const char* reporte);
+void mayorProducto(const char* venta,const char* reporte);
+void ventasSospechosas(const char* venta,const char* reporte);
 
 int main(){
     char venta[]="entradas/ventas.dat";
+    char reporte[]="output/reporte.txt";
+    
+    ofstream archivo(reporte, ios::out | ios::app);
+    if(!archivo){
+        cerr<<"Error al abrir el reporte"<<endl;
+        return -1;
+    }
 
-    cout<<"--- REPORTE GENERAL DE VENTAS ----"<<endl<<endl;
-    cout<<"Total de registros: "<<totalRegistrados(venta)<<endl<<endl;
-    cout<<"Monto total vendido: "<<endl<<"S/. "<<montoTotal(venta)<<endl<<endl;
-    cout<<"---------------------------------------"<<endl;
-    cout<<"VENDEDOR CON MAYOR RECAUDACIÓN: "<<endl;
-    mayorVendedor(venta);
+    archivo<<"--- REPORTE GENERAL DE VENTAS ----"<<endl<<endl;
+    archivo<<"Total de registros: "<<totalRegistrados(venta)<<endl<<endl;
+    archivo<<"Monto total vendido: "<<endl<<"S/. "<<montoTotal(venta)<<endl<<endl;
+    archivo<<"---------------------------------------"<<endl;
+    mayorVendedor(venta,reporte);
+    archivo<<"---------------------------------------"<<endl;
+    mayorProducto(venta,reporte);
+    archivo<<"---------------------------------------"<<endl;
+    ventasSospechosas(venta,reporte);
+    cout<<"Se realizo el reporte correctamente."<<endl;
+
+    return 0;
 }
 
 int totalRegistrados(const char* venta){
@@ -57,7 +72,7 @@ double montoTotal(const char* venta){
     return suma;
 }
 
-void mayorVendedor(const char* venta){
+void mayorVendedor(const char* venta,const char* reporte){
     ifstream archivo(venta, ios::in | ios::binary);
     if(!archivo){
         cerr<<"Error al leer el archivo"<<endl;
@@ -98,6 +113,90 @@ void mayorVendedor(const char* venta){
         }
     }
     archivo.close();
-    cout<<"ID Vendedor: "<<IDmax<<endl;
-    cout<<"Total vendido: "<<maxCantidad<<endl;
+    ofstream archivoEscritura(reporte, ios::out | ios::app);
+    if(!archivoEscritura){
+        cerr<<"Error al abrir el archivo"<<endl;
+        return;
+    }
+    archivoEscritura<<"VENDEDOR CON MAYOR RECAUDACIÓN: "<<endl;
+    archivoEscritura<<"ID Vendedor: "<<IDmax<<endl;
+    archivoEscritura<<"Total vendido: "<<maxCantidad<<endl<<endl;
+    archivoEscritura.close();
+}
+
+void mayorProducto(const char* venta,const char* reporte){
+    ifstream archivo(venta, ios::in | ios::binary);
+    if(!archivo){
+        cerr<<"Error al leer el archivo"<<endl;
+        return;
+    }
+
+    int Prod[200];
+    Venta e;
+    int k=0;
+    
+    while(archivo.read((char*)&e,sizeof(Venta))){
+        bool unico=true;
+
+        for(int i=0;i<k;i++){
+            if(Prod[i]==e.idProducto){
+                unico=false;
+                break;
+            }
+        }
+        if(unico){
+            Prod[k]=e.idProducto;
+            k++;
+        }
+    }
+    int max=0;
+    int idMax=0;
+    for(int i=0;i<k;i++){
+        int cont=0;
+        archivo.clear();
+        archivo.seekg(0,ios::beg);
+        while(archivo.read((char*)&e,sizeof(Venta))){
+            if(Prod[i]==e.idProducto) cont++;
+        }
+        if(max<cont){
+            idMax=Prod[i];
+            max=cont;
+        }
+    }
+    archivo.close();
+    ofstream archivoEscritura(reporte, ios::out | ios::app);
+    if(!archivoEscritura){
+        cerr<<"Error al abrir el archivo"<<endl;
+        return;
+    }
+    
+    archivoEscritura<<"PRODUCTO MÁS VENDIDO: "<<endl;
+    archivoEscritura<<"ID Producto: "<<idMax<<endl;
+    archivoEscritura<<"Total unidades: "<<max<<endl<<endl;
+    archivoEscritura.close();
+}
+
+void ventasSospechosas(const char* venta,const char* reporte){
+    ifstream archivo(venta, ios::in | ios::binary);
+    if(!archivo){
+        cerr<<"Error al leer el archivo"<<endl;
+        return;
+    }
+
+    ofstream archivoEscritura(reporte, ios::out | ios::app);
+    if(!archivoEscritura){
+        cerr<<"Error al abrir el archivo"<<endl;
+        return;
+    }
+
+    Venta e;
+    archivoEscritura<<"VENTAS SOSPECHOSAS (cantidad > 100): "<<endl<<endl;
+    while(archivo.read((char*)&e,sizeof(Venta))){
+        if(e.cantidad>100){
+            archivoEscritura<<"ID Venta: "<<e.idVenta<<" | Vendedor: "<<e.idVendedor;
+            archivoEscritura<<" | Producto: "<<e.idProducto<<" | Cantidad: "<<e.cantidad<<endl;
+        } 
+    }
+    archivo.close();
+    archivoEscritura.close();
 }
