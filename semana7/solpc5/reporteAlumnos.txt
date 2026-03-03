@@ -28,3 +28,8 @@
 1028	Claudia		15		APROBADO
 1029	Ivan		9		DESAPROBADO
 1030	Monica		17		APROBADO
+
+Total de estudiantes: 30
+Promedio general: 12.7889
+Estudiante con mayor promedio: Daniela	19.6667
+Estudiante con menor promedio: Jorge	5
