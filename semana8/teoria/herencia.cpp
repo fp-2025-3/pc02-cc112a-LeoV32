@@ -33,6 +33,32 @@ class Coche : public Vehiculo{
 
 };
 
+class Moto : public Vehiculo{
+    private:
+    bool conCasco;
+
+    public:
+    Moto(int r, string c, bool cC) : Vehiculo(r,c), conCasco(cC){};
+    ~Moto(){
+        cout<<"Destructor Moto: "<<endl;
+    }
+    void mostrarMoto(){
+        mostrarInfo();
+        cout<<"Tiene casco "<<conCasco<<endl;
+    }
+
+};
+
 int main(){
 
+    Vehiculo v1(4,"Azul");
+    v1.mostrarInfo();
+
+    Coche c1(4, "Rojo", 4);
+    c1.mostrarCoche();
+
+    Moto m1(2, "Negro",true);
+    m1.mostrarMoto();
+
+    return 0;
 }
